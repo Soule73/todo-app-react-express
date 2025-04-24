@@ -17,7 +17,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onToggleStatus, onDelete }) =
     <div className="px-4 py-5 sm:px-6">
       <div className="flex items-center justify-between">
         <h3 className="text-lg leading-6 font-medium text-gray-900">{task.title}</h3>
-        <p className="mt-1 max-w-2xl text-sm text-gray-500">{task.description}</p>
+        <p className="mt-1 max-w-sm text-sm text-gray-500">{task.description}</p>
       </div>
       <div className="mt-4 flex items-center justify-between">
         <p className="text-sm font-medium text-gray-500">
