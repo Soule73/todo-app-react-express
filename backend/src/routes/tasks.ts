@@ -32,4 +32,12 @@ router.post('/', tasksController.createTask);
  */
 router.patch('/:id', tasksController.updateTask);
 
+/**
+ * @route DELETE /tasks/:id
+ * @description Supprimer la tâche
+ * @param {string} id - L'ID de la tâche
+ * @returns ''
+ */
+router.delete('/:id', tasksController.deleteTask);
+
 export default router;

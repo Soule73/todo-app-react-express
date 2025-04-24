@@ -1,4 +1,4 @@
-import { Task, TaskStatus } from '../types/task';
+import { Task } from '../types/task';
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -68,7 +68,6 @@ class TasksService {
     const task = tasks.find((task) => task.id === id);
     if (!task) throw new Error('Task not found');
 
-    // Mettre à jour uniquement les champs fournis
     Object.assign(task, updates);
 
     this.writeTasksToFile(tasks);

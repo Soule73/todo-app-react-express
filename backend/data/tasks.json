@@ -10,11 +10,5 @@
     "title": "Tache test",
     "description": "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex sit aliquid non facilis, est provident quibusdam atque sequi temporibus ullam illum nisi dolores inventore incidunt aut eaque consequuntur ratione sapiente.",
     "status": "pending"
-  },
-  {
-    "id": "d22eec0b-ab3b-453e-b6db-3cf27228c91a",
-    "title": "Tache 2",
-    "description": "Lome lormm",
-    "status": "pending"
   }
 ]

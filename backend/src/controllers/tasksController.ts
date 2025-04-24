@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { tasksService } from '../services/tasksService';
-import { TaskStatus } from '../types/task';
+import { Task, TaskStatus } from '../types/task';
 
 // Schéma de validation pour la création d'une tâche
 const taskSchema = z.object({
