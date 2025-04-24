@@ -41,7 +41,7 @@ export const tasksController = {
    */
   createTask: (req: Request, res: Response) => {
     try {
-      const newTask = taskSchema.parse(req.body); // Validation des données avec Zod
+      const newTask = taskSchema.parse(req.body); 
       const createdTask = tasksService.createTask(newTask);
       res.status(201).json(createdTask);
     } catch (error) {
@@ -51,7 +51,7 @@ export const tasksController = {
             field: e.path.join('.'),
             message: e.message,
           })),
-        }); // Retourne les erreurs de validation avec des détails
+        }); 
       } else {
         console.error('Erreur lors de la création de la tâche :', error);
         res.status(500).json({ error: 'Erreur interne du serveur.' });
@@ -69,7 +69,7 @@ export const tasksController = {
   updateTask: (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const updates = updateTaskSchema.parse(req.body); // Validation des champs
+      const updates = updateTaskSchema.parse(req.body);
       const updatedTask = tasksService.updateTask(id, updates);
       res.status(200).json(updatedTask);
     } catch (error) {
@@ -99,7 +99,7 @@ export const tasksController = {
     try {
       const { id } = req.params;
       tasksService.deleteTask(id);
-      res.status(204).send(); // Retourne un code 204 sans contenu
+      res.status(204).send();
     } catch (error) {
       if (error instanceof Error && error.message === 'Task not found') {
         res.status(404).json({ error: 'Tâche non trouvée' });
