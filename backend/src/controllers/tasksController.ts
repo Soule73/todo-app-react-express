@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { tasksService } from '../services/tasksService';
-import { Task, TaskStatus } from '../types/task';
+import { TaskStatus } from '../types/task';
 
 // Schéma de validation pour la création d'une tâche
 const taskSchema = z.object({
@@ -21,9 +21,9 @@ export const tasksController = {
   /**
    * Récupère toutes les tâches.
    * @route GET /tasks
-   * @returns {Task[]} Liste des tâches.
+   * @returns {void} Envoie une réponse contenant la liste des tâches.
    */
-  getAllTasks: (req: Request, res: Response) => {
+  getAllTasks: (req: Request, res: Response): void => {
     try {
       const tasks = tasksService.getAllTasks();
       res.status(200).json(tasks);
@@ -37,9 +37,9 @@ export const tasksController = {
    * Crée une nouvelle tâche.
    * @route POST /tasks
    * @body {title: string, description: string, status: "pending" | "done"}
-   * @returns {Task} La tâche créée.
+   * @returns {void} Envoie une réponse contenant la tâche créée.
    */
-  createTask: (req: Request, res: Response) => {
+  createTask: (req: Request, res: Response): void => {
     try {
       const newTask = taskSchema.parse(req.body); 
       const createdTask = tasksService.createTask(newTask);
@@ -62,11 +62,10 @@ export const tasksController = {
   /**
    * Met à jour une tâche.
    * @route PATCH /tasks/:id
-   * @param {string} id - L'ID de la tâche.
    * @body {Partial<Task>} - Champs à mettre à jour.
-   * @returns {Task} La tâche mise à jour.
+   * @returns {void} Envoie une réponse contenant la tâche mise à jour.
    */
-  updateTask: (req: Request, res: Response) => {
+  updateTask: (req: Request, res: Response): void => {
     try {
       const { id } = req.params;
       const updates = updateTaskSchema.parse(req.body);
@@ -92,10 +91,9 @@ export const tasksController = {
   /**
    * Supprime une tâche.
    * @route DELETE /tasks/:id
-   * @param {string} id - L'ID de la tâche.
-   * @returns {void}
+   * @returns {void} Envoie une réponse sans contenu.
    */
-  deleteTask: (req: Request, res: Response) => {
+  deleteTask: (req: Request, res: Response): void => {
     try {
       const { id } = req.params;
       tasksService.deleteTask(id);

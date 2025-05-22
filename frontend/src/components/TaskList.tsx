@@ -6,7 +6,7 @@ import TaskCard from './TaskCard';
 const TaskList = () => {
   const queryClient = useQueryClient();
 
-  const { data: tasks, isLoading } = useQuery<Task[]>({
+  const { data: tasks, isLoading,error } = useQuery<Task[]>({
     queryKey: ['tasks'],
     queryFn: getTasks,
   });
@@ -22,6 +22,8 @@ const TaskList = () => {
   });
 
   if (isLoading) return <p>Chargement...</p>;
+
+  if (error) return 'Une erreur se produit: ' + error.message
 
   return (
     <div className="shadow overflow-hidden sm:rounded-md mx-auto divide-y divide-gray-200 border border-gray-200">

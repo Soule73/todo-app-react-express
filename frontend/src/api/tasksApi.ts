@@ -36,7 +36,7 @@ export const createTask = async (task: { title: string; description: string; sta
  * @param {string} status - Nouveau statut de la tâche ("pending" ou "done").
  * @returns {Promise<Task>} La tâche mise à jour.
  */
-export const updateTaskStatus = async (id: string, status: string) => {
+export const updateTaskStatus = async (id: string, status: string): Promise<Task> => {
   const response = await api.patch(`/${id}`, { status });
   return response.data;
 };
