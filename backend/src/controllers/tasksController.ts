@@ -23,9 +23,9 @@ export const tasksController = {
    * @route GET /tasks
    * @returns {void} Envoie une réponse contenant la liste des tâches.
    */
-  getAllTasks: (req: Request, res: Response): void => {
+  getAllTasks: async (req: Request, res: Response): Promise<void> => {
     try {
-      const tasks = tasksService.getAllTasks();
+      const tasks = await tasksService.getAllTasks();
       res.status(200).json(tasks);
     } catch (error) {
       console.error('Erreur lors de la récupération des tâches :', error);
@@ -39,10 +39,10 @@ export const tasksController = {
    * @body {title: string, description: string, status: "pending" | "done"}
    * @returns {void} Envoie une réponse contenant la tâche créée.
    */
-  createTask: (req: Request, res: Response): void => {
+  createTask: async (req: Request, res: Response): Promise<void> => {
     try {
-      const newTask = taskSchema.parse(req.body); 
-      const createdTask = tasksService.createTask(newTask);
+      const newTask = taskSchema.parse(req.body);
+      const createdTask = await tasksService.createTask(newTask);
       res.status(201).json(createdTask);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -51,7 +51,7 @@ export const tasksController = {
             field: e.path.join('.'),
             message: e.message,
           })),
-        }); 
+        });
       } else {
         console.error('Erreur lors de la création de la tâche :', error);
         res.status(500).json({ error: 'Erreur interne du serveur.' });
@@ -65,11 +65,11 @@ export const tasksController = {
    * @body {Partial<Task>} - Champs à mettre à jour.
    * @returns {void} Envoie une réponse contenant la tâche mise à jour.
    */
-  updateTask: (req: Request, res: Response): void => {
+  updateTask: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
       const updates = updateTaskSchema.parse(req.body);
-      const updatedTask = tasksService.updateTask(id, updates);
+      const updatedTask = await tasksService.updateTask(id, updates);
       res.status(200).json(updatedTask);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -93,10 +93,10 @@ export const tasksController = {
    * @route DELETE /tasks/:id
    * @returns {void} Envoie une réponse sans contenu.
    */
-  deleteTask: (req: Request, res: Response): void => {
+  deleteTask: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
-      tasksService.deleteTask(id);
+      await tasksService.deleteTask(id);
       res.status(204).send();
     } catch (error) {
       if (error instanceof Error && error.message === 'Task not found') {

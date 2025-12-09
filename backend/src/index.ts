@@ -1,7 +1,9 @@
+import 'dotenv/config';
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors'; 
+import cors from 'cors';
 import taskRoutes from './routes/tasks';
+import { connectDatabase } from './config/database';
 
 const app = express();
 const PORT = 3000;
@@ -17,7 +19,12 @@ app.use(bodyParser.json());
 // Routes pour les tâches
 app.use('/tasks', taskRoutes);
 
-// Démarrage du serveur
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Connexion à MongoDB puis démarrage du serveur
+connectDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}).catch((error) => {
+  console.error('Impossible de démarrer le serveur:', error);
+  process.exit(1);
 });
